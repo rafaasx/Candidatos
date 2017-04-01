@@ -1,0 +1,58 @@
+﻿@{
+    ViewBag.Title = "Caditatos";
+}
+
+<div ng-controller="IndexController">
+    <div class="page-header">
+        <h1>
+            Candidatos 1.0
+            <p><small>Formulário</small></p>
+        </h1>
+    </div>
+    <div class="bs-example" data-example-id="horizontal-static-form-control">
+        <form name="form" novalidate>
+            <div class="panel panel-info">
+                <div class="panel-heading">Dados do candidato</div>
+                <div class="panel-body">
+                    {{candidato}}
+                    @*{{candidato}} - form.error: {{form.$error}} - form.invalid: {{form.$invalid}}*@
+                    @*form.error: {{form.$error}} - form.invalid: {{form.$invalid}}*@
+                    <div class="form-group">
+                        <div class="control-group col-sm-5" ng-class="{'has-error': form.name.$invalid && !form.name.$pristine}">
+                            <label for="exampleInputName2">Nome</label>
+                            <input type="text" class="form-control" name="name" placeholder="Nome Completo" ng-model="candidato.nome" ng-minlength="10" required>
+                            <p ng-show="form.name.$invalid && !form.name.$pristine" class="help-block">Nome obrigatório!</p>
+                        </div>
+                        <div class="control-group col-sm-5" ng-class="{'has-error': form.email.$invalid && !form.email.$pristine}">
+                            <label for="exampleInputEmail2">E-mail</label>
+                            <input type="email" name="email" class="form-control" placeholder="email@examplo.com" ng-model="candidato.email" required>
+                            <p ng-show="form.email.$invalid && !form.email.$pristine" class="help-block">E-mail obrigatório!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-info">
+                <div class="panel-heading">Avalie seu conhecimento de 0 a 10 nos seguintes itens</div>
+                <div class="panel-body">
+                    <label for="input-html" class="control-label">HTML</label>
+                    <input id="input-html" name="html" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.html">
+                    <label for="input-css" class="control-label">CSS</label>
+                    <input id="input-css" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.css">
+                    <label for="input-javascript" class="control-label">Javascript</label>
+                    <input id="input-javascript" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.javascript">
+                    <label for="input-python" class="control-label">Python</label>
+                    <input id="input-python" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.python">
+                    <label for="input-django" class="control-label">Django</label>
+                    <input id="input-django" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.django">
+                    <label for="input-ios" class="control-label">Desenvolvimento iOS</label>
+                    <input id="input-ios" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.ios">
+                    <label for="input-android" class="control-label">Desenvolvimento Android</label>
+                    <input id="input-android" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.android">
+                </div>
+            </div>
+        </form>
+    </div>
+    <br><br>
+    <button class="col-sm-2 btn btn-success" ng-disabled="form.$invalid" ng-click="enviar()">Confirmar</button>
+    <br><br>
+</div>
