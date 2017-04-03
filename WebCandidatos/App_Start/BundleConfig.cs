@@ -29,7 +29,7 @@ namespace WebCandidatos
 
             bundles.Add(new ScriptBundle("~/bundles/controllers").Include(
                                   "~/Js/App.js",
-                                  "~/Js/IndexController.js"));
+                                  "~/Js/HomeController.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap-star-rating").Include(
                                   "~/Scripts/star-rating.js"));
@@ -40,6 +40,7 @@ namespace WebCandidatos
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
                       "~/Content/site.css",
+                      "~/Content/font-awesome.css",
                       "~/Content/star-rating.css"));
         }
     }

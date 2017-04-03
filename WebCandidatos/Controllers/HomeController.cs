@@ -3,7 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Microsoft.Ajax.Utilities;
 using Util;
+using Newtonsoft.Json;
+using WebCandidatos.Models;
 
 namespace WebCandidatos.Controllers
 {
@@ -28,12 +31,40 @@ namespace WebCandidatos.Controllers
             return View();
         }
 
-        //[HttpPost]
-        public ActionResult Enviar(JsonResult json)
+        [HttpPost]
+        public string Enviar(Candidato candidato)
         {
-            Mail mail = new Mail {EmailPara = "rafaeltwisted@gmail.com"};
-            mail.Enviar();
-            return Json(json, JsonRequestBehavior.AllowGet);
+            Mail mail = new Mail {EmailPara = candidato.email, Subject = "Obrigado por se candidatar!"};
+            const int media = 7;
+            if (candidato.html >= media || candidato.css >= media || candidato.javascript >= media)
+            {
+                mail.Body = @"Obrigado por se candidatar, assim que tivermos uma vaga disponível
+                            para programador Front - End entraremos em contato.";
+                mail.Enviar();
+            }
+            if (candidato.python >= media || candidato.django >= media)
+            {
+                mail.Body = @"Obrigado por se candidatar, assim que tivermos uma vaga disponível
+                            para programador Back - End entraremos em contato.";
+                mail.Enviar();
+            }
+            if (candidato.android >= media || candidato.ios >= media)
+            {
+                mail.Body = @"Obrigado por se candidatar, assim que tivermos uma vaga disponível
+                            para programador Mobile entraremos em contato.";
+                mail.Enviar();
+            }
+            if (candidato.html < media && candidato.css < media && candidato.javascript < media &&
+                candidato.android < media && candidato.ios < media && candidato.python < media &&
+                candidato.django < media)
+            {
+                mail.Body = @"Obrigado por se candidatar, assim que tivermos uma vaga disponível
+                            para programador entraremos em contato.";
+                mail.Enviar();
+            }
+
+            return JsonConvert.SerializeObject(mail.Body);
+
         }
     }
 }

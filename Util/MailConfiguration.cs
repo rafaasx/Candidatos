@@ -8,75 +8,14 @@ namespace Util
 {
     public class MailConfiguration
     {
-        private string _email;
-        private int _port;
-        private string _password;
-        private string _smtp;
-        private bool _ssl;
+        public string Email { get; set; }
 
-        public string Email
-        {
-            get
-            {
-                return _email;
-            }
+        public int Port { get; set; }
 
-            set
-            {
-                _email = value;
-            }
-        }
+        public string Password { get; set; }
 
-        public int Port
-        {
-            get
-            {
-                return _port;
-            }
+        public string Smtp { get; set; }
 
-            set
-            {
-                _port = value;
-            }
-        }
-
-        public string Password
-        {
-            get
-            {
-                return _password;
-            }
-
-            set
-            {
-                _password = value;
-            }
-        }
-
-        public string Smtp
-        {
-            get
-            {
-                return _smtp;
-            }
-
-            set
-            {
-                _smtp = value;
-            }
-        }
-
-        public bool Ssl
-        {
-            get
-            {
-                return _ssl;
-            }
-
-            set
-            {
-                _ssl = value;
-            }
-        }
+        public bool Ssl { get; set; }
     }
 }
