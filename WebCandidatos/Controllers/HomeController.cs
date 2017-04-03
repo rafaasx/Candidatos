@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Util;
 
 namespace WebCandidatos.Controllers
 {
@@ -27,10 +28,11 @@ namespace WebCandidatos.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult Enviar(string json)
+        //[HttpPost]
+        public ActionResult Enviar(JsonResult json)
         {
-            Console.WriteLine(json);
+            Mail mail = new Mail {EmailPara = "rafaeltwisted@gmail.com"};
+            mail.Enviar();
             return Json(json, JsonRequestBehavior.AllowGet);
         }
     }

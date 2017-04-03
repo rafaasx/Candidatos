@@ -24,14 +24,18 @@ namespace WebCandidatos
                       "~/Scripts/respond.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/angular").Include(
-                      "~/Scripts/angular.js"));
+                      "~/Scripts/angular.js",
+                      "~/Scripts/angular-sanitize.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/controllers").Include(
-                                  "~/Js/*.js",
+                                  "~/Js/App.js",
                                   "~/Js/IndexController.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap-star-rating").Include(
                                   "~/Scripts/star-rating.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/ui-bootstrap").Include(
+                                  "~/Scripts/ui-bootstrap.js"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",

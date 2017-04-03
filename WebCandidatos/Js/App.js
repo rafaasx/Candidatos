@@ -1,6 +1,6 @@
 ﻿(function () {
     'use strict';
 
-    angular.module('myApp', [])
+    angular.module('myApp', ['ngSanitize', 'ui.bootstrap'])
 
 })();

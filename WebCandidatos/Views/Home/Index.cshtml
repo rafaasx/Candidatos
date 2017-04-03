@@ -1,6 +1,23 @@
 ﻿@{
     ViewBag.Title = "Caditatos";
 }
+<script type="text/ng-template" id="myModalContent.html">
+    <div class="modal-header">
+        <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
+    </div>
+    <div class="modal-body" id="modal-body">
+        <ul>
+            <li ng-repeat="item in $ctrl.items">
+                <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
+            </li>
+        </ul>
+        Selected: <b>{{ $ctrl.selected.item }}</b>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
+        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+    </div>
+</script>
 
 <div ng-controller="IndexController">
     <div class="page-header">
@@ -20,7 +37,7 @@
                     <div class="form-group">
                         <div class="control-group col-sm-5" ng-class="{'has-error': form.name.$invalid && !form.name.$pristine}">
                             <label for="exampleInputName2">Nome</label>
-                            <input type="text" class="form-control" name="name" placeholder="Nome Completo" ng-model="candidato.nome" ng-minlength="10" required>
+                            <input type="text" class="form-control" name="name" placeholder="Nome Completo" ng-model="candidato.nome" ng-minlength="5" required>
                             <p ng-show="form.name.$invalid && !form.name.$pristine" class="help-block">Nome obrigatório!</p>
                         </div>
                         <div class="control-group col-sm-5" ng-class="{'has-error': form.email.$invalid && !form.email.$pristine}">
@@ -51,8 +68,10 @@
                 </div>
             </div>
         </form>
+        <div ng-bind-html="retorno.data"></div>
     </div>
     <br><br>
     <button class="col-sm-2 btn btn-success" ng-disabled="form.$invalid" ng-click="enviar()">Confirmar</button>
+    <button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>
     <br><br>
 </div>
