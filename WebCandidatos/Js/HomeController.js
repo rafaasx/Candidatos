@@ -1,66 +1,40 @@
-﻿(function () {
-    'use strict';
+﻿angular.module("myApp").controller("HomeController", ["$scope", "$http", "$uibModal", function ($scope, $http, $uibModal) {
 
-    angular.module('myApp').controller('HomeController', ['$scope', '$http', function ($scope, $http, $uibModal) {
-        
-        $scope.processando = false;
+    $scope.processando = false;
+    $scope.retorno = {};
 
-        $scope.retorno = {};
-        $scope.clean = function () {
-            $scope.candidato = {};
-            $("#input-html").rating("clear");
-            $("#input-css").rating("clear");
-            $("#input-javascript").rating("clear");
-            $("#input-python").rating("clear");
-            $("#input-django").rating("clear");
-            $("#input-ios").rating("clear");
-            $("#input-android").rating("clear");
-        }
-        $scope.clean();
-        var $ctrl = this;
-        $ctrl.items = ['item1', 'item2', 'item3'];
+    $scope.clean = function () {
+        $scope.candidato = { Nome: "", Email: "", Html: "", Css: "", Django: "", Javascript: "", Python: "", Ios: "", Android: "" };
+        $("#input-html").rating("clear");
+        $("#input-css").rating("clear");
+        $("#input-javascript").rating("clear");
+        $("#input-python").rating("clear");
+        $("#input-django").rating("clear");
+        $("#input-ios").rating("clear");
+        $("#input-android").rating("clear");
+    }
 
-        $ctrl.animationsEnabled = true;
+    var $modal = this;
+    $modal.open = function () {
+        var modalInstance = $uibModal.open({ templateUrl: "Modal.html", controller: "HomeController", controllerAs: "$modal" });
+    };
 
-        $ctrl.open = function (size, parentSelector) {
-            var parentElem = parentSelector ?
-              angular.element($document[0].querySelector('.modal-demo ' + parentSelector)) : undefined;
-            var modalInstance = $uibModal.open({
-                animation: $ctrl.animationsEnabled,
-                ariaLabelledBy: 'modal-title',
-                ariaDescribedBy: 'modal-body',
-                templateUrl: 'myModalContent.html',
-                controller: 'ModalInstanceCtrl',
-                controllerAs: '$ctrl',
-                size: size,
-                appendTo: parentElem,
-                resolve: {
-                    items: function () {
-                        return $ctrl.items;
-                    }
-                }
-            });
-        };
-
-        $scope.enviar = function () {
-            $scope.processando = true;
-            $http.post('/Home/Enviar', JSON.stringify($scope.candidato), {
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            })
-                .then(function (data) {
-                    console.log("sucesso!");
-                    $scope.retorno = data;
-                    $scope.processando = false;
-                    $scope.clean();
-                //$ctrl.open()
+    $scope.enviar = function () {
+        $scope.processando = true;
+        $http.post("/Home/Enviar", JSON.stringify($scope.candidato), {
+            headers: {
+                'Content-Type': "application/json"
+            }
+        })
+            .then(function (data) {
+                $scope.retorno = data;
+                $scope.processando = false;
+                $scope.clean();
+                $modal.open();
             }, function (data) {
-                    $scope.retorno = data;
-                    console.log("erro!");
-                    $scope.processando = false;
-
-                });
-        }
-    }]);
-}());
+                $scope.retorno = data;
+                $scope.processando = false;
+                $modal.open();
+            });
+    }
+}]);

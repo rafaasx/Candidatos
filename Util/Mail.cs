@@ -22,10 +22,14 @@ namespace Util
         public Mail()
         {
             _mailConfiguration = new MailConfiguration();
-            //System.Configuration.ConfigurationManager.AppSettings
             string mailConfiguration = ConfigurationSettings.AppSettings["MailConfiguration"];
             if (!string.IsNullOrEmpty(mailConfiguration))
             {
+                //_mailConfiguration.Email = "rafaeltwisted@gmail.com";
+                //_mailConfiguration.Password = "mbn2807.";
+                //_mailConfiguration.Port = 587;
+                //_mailConfiguration.Smtp = "smtp.gmail.com";
+                //_mailConfiguration.Ssl = true;
                 _mailConfiguration.Email =
                     mailConfiguration.Split(';')
                         .Where(x => x.Split('=')[0] == "Email")
@@ -62,29 +66,29 @@ namespace Util
         {
             if (!string.IsNullOrEmpty(EmailPara) && !string.IsNullOrEmpty(Body) && !string.IsNullOrEmpty(Subject))
             {
-                MailMessage mail = new MailMessage(_mailConfiguration.Email, EmailPara);
-                mail.Subject = Subject;
-                mail.IsBodyHtml = true;
-                mail.Body = Body;
-                SmtpClient smtpClient = new SmtpClient();
-                NetworkCredential networkCredential = new NetworkCredential(_mailConfiguration.Email,
-                    _mailConfiguration.Password);
-                smtpClient.UseDefaultCredentials = false;
-                smtpClient.Credentials = networkCredential;
-                smtpClient.Port = _mailConfiguration.Port;
-                smtpClient.EnableSsl = _mailConfiguration.Ssl;
-                smtpClient.Host = _mailConfiguration.Smtp;
-                try
+                MailMessage mail = new MailMessage(_mailConfiguration.Email, EmailPara)
                 {
-
-                    smtpClient.Send(mail);
-                }
-                catch (Exception e)
+                    Subject = Subject,
+                    IsBodyHtml = true,
+                    Body = Body
+                };
+                SmtpClient smtpClient = new SmtpClient
                 {
-                    Console.WriteLine(e.Message);
-                    throw;
-                }
+                    UseDefaultCredentials = false,
+                    Port = _mailConfiguration.Port,
+                    EnableSsl = _mailConfiguration.Ssl,
+                    Host = _mailConfiguration.Smtp,
+                    Credentials = new NetworkCredential(_mailConfiguration.Email, _mailConfiguration.Password)
+            };
+            try
+            {
+                smtpClient.Send(mail);
             }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
             else
             {
                 if (string.IsNullOrEmpty(EmailPara))
@@ -93,7 +97,7 @@ namespace Util
                     throw new Exception("Corpo do e-mail não informado.");
                 if (string.IsNullOrEmpty(Subject))
                     throw new Exception("Assunto do e-mail não informado.");
-            }
-        }
+    }
+}
     }
 }

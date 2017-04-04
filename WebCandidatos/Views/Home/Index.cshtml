@@ -1,21 +1,17 @@
 ﻿@{
     ViewBag.Title = "Caditatos";
 }
-<script type="text/ng-template" id="myModalContent.html">
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title">I'm a modal!</h3>
-    </div>
-    <div class="modal-body" id="modal-body">
-        <ul>
-            <li ng-repeat="item in $ctrl.items">
-                <a href="#" ng-click="$event.preventDefault(); $ctrl.selected.item = item">{{ item }}</a>
-            </li>
-        </ul>
-        Selected: <b>{{ $ctrl.selected.item }}</b>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" type="button" ng-click="$ctrl.ok()">OK</button>
-        <button class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">Cancel</button>
+<script type="text/ng-template" id="Modal.html">
+    <div ng-controller="HomeController">
+        <div class="modal-header">
+            <h3 class="modal-title" id="modal-title">Atenção!</h3>
+        </div>
+        <div class="modal-body" id="modal-body">
+            <h1>Ini: <div ng-bind-html="retorno.data"></div> {{retorno.data}}:Fim</h1>
+        </div>
+        <div class="modal-footer">
+            <button class="btn btn-primary" type="button" ng-click="$close(true)">OK</button>
+        </div>
     </div>
 </script>
 
@@ -31,47 +27,55 @@
             <div class="panel panel-info">
                 <div class="panel-heading">Dados do candidato</div>
                 <div class="panel-body">
-                    {{candidato}}
-                    @*{{candidato}} - form.error: {{form.$error}} - form.invalid: {{form.$invalid}}*@
-                    @*form.error: {{form.$error}} - form.invalid: {{form.$invalid}}*@
                     <div class="form-group">
                         <div class="control-group col-sm-5" ng-class="{'has-error': form.name.$invalid && !form.name.$pristine}">
                             <label for="exampleInputName2">Nome</label>
-                            <input type="text" class="form-control" name="name" placeholder="Nome Completo" ng-model="candidato.nome" ng-minlength="5" required ng-disabled="processando">
+                            <input type="text" class="form-control" name="name" placeholder="Nome Completo" ng-model="candidato.Nome" ng-minlength="5" required ng-disabled="processando">
                             <p ng-show="form.name.$invalid && !form.name.$pristine" class="help-block">Nome obrigatório!</p>
                         </div>
                         <div class="control-group col-sm-5" ng-class="{'has-error': form.email.$invalid && !form.email.$pristine}">
                             <label for="exampleInputEmail2">E-mail</label>
-                            <input type="email" name="email" class="form-control" placeholder="email@examplo.com" ng-model="candidato.email" required ng-disabled="processando">
+                            <input type="email" name="email" class="form-control" placeholder="email@examplo.com" ng-model="candidato.Email" required ng-disabled="processando">
                             <p ng-show="form.email.$invalid && !form.email.$pristine" class="help-block">E-mail obrigatório!</p>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="panel panel-info">
-                <div class="panel-heading">Avalie seu conhecimento de 0 a 10 nos seguintes itens</div>
+                <div class="panel-heading">Avalie seu conhecimento de 0 a 10 nos seguintes itens {{processando}}</div>
                 <div class="panel-body">
                     <label for="input-html" class="control-label">HTML</label>
-                    <input id="input-html" name="html" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.html" ng-disabled="processando">
+                    <input id="input-html" name="html" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm"
+                           ng-model="candidato.Html" ng-readonly="!processando">
+
                     <label for="input-css" class="control-label">CSS</label>
-                    <input id="input-css" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.css" ng-disabled="processando">
+                    <input id="input-css" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm"
+                           ng-model="candidato.Css" ng-readonly="processando">
+
                     <label for="input-javascript" class="control-label">Javascript</label>
-                    <input id="input-javascript" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.javascript" ng-disabled="processando">
+                    <input id="input-javascript" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm"
+                           ng-model="candidato.Javascript" ng-readonly="processando">
+
                     <label for="input-python" class="control-label">Python</label>
-                    <input id="input-python" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.python" ng-disabled="processando">
+                    <input id="input-python" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm"
+                           ng-model="candidato.Python" ng-readonly="processando">
+
                     <label for="input-django" class="control-label">Django</label>
-                    <input id="input-django" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.django" ng-disabled="processando">
+                    <input id="input-django" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm"
+                           ng-model="candidato.Django" ng-readonly="processando">
+
                     <label for="input-ios" class="control-label">Desenvolvimento iOS</label>
-                    <input id="input-ios" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.ios" ng-disabled="processando">
+                    <input id="input-ios" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm"
+                           ng-model="candidato.Ios" ng-readonly="processando">
+
                     <label for="input-android" class="control-label">Desenvolvimento Android</label>
-                    <input id="input-android" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" ng-model="candidato.android" ng-disabled="processando">
+                    <input id="input-android" name="input-1" class="rating rating-loading" data-min="0" data-max="10" data-step="1" data-size="sm" 
+                           ng-model="candidato.Android" ng-readonly="processando">
                 </div>
             </div>
         </form>
-        <div ng-bind-html="retorno.data"></div>
     </div>
     <br><br>
     <button class="col-sm-2 btn btn-success" ng-disabled="form.$invalid || processando" ng-click="enviar()"><i class="fa fa-spinner fa-pulse fa-lg fa-fw" ng-show="processando"></i>Confirmar</button>
-    @*<button type="button" class="btn btn-default" ng-click="$ctrl.open()">Open me!</button>*@
     <br><br>
 </div>
