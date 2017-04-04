@@ -17,28 +17,13 @@ namespace WebCandidatos.Controllers
         {
             return View();
         }
-
-        public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
-
+        
         [HttpPost]
-        public string Enviar(CandidatoInfo candidato)
+        public string Enviar(CandidatoInfo pCandidatoInfo)
         {
             CandidatoBLL candidatoBLL = new CandidatoBLL();
-            string retorno = candidatoBLL.Enviar(candidato);
+            Retorno retorno = candidatoBLL.Enviar(pCandidatoInfo);
             return JsonConvert.SerializeObject(retorno);
-
         }
     }
 }

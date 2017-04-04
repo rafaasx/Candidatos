@@ -32,7 +32,8 @@ namespace WebCandidatos
                                   "~/Js/HomeController.js"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap-star-rating").Include(
-                                  "~/Scripts/star-rating.js"));
+                                  "~/Scripts/star-rating.js",
+                                  "~/Scripts/star-rating_locale_pt-br"));
 
             bundles.Add(new ScriptBundle("~/bundles/ui-bootstrap").Include(
                                   "~/Scripts/ui-bootstrap.js"));

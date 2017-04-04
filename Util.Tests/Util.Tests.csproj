@@ -50,10 +50,18 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="MailTest.cs" />
+    <Compile Include="CandidatoBLLTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\BLL\BLL.csproj">
+      <Project>{5999e5f5-da37-4ed0-b596-4c1a59bda425}</Project>
+      <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Model\Model.csproj">
+      <Project>{885c9ddc-7f4f-4c90-9a70-cfec488e032e}</Project>
+      <Name>Model</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Util\Util.csproj">
       <Project>{610db7db-ec37-44b0-b372-722c865467af}</Project>
       <Name>Util</Name>

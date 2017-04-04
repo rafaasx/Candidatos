@@ -1,7 +1,6 @@
 ﻿angular.module("myApp").controller("HomeController", ["$scope", "$http", "$uibModal", function ($scope, $http, $uibModal) {
 
     $scope.processando = false;
-    $scope.retorno = {};
 
     $scope.clean = function () {
         $scope.candidato = { Nome: "", Email: "", Html: "", Css: "", Django: "", Javascript: "", Python: "", Ios: "", Android: "" };
@@ -15,8 +14,14 @@
     }
 
     var $modal = this;
+    $modal.retorno = {};
     $modal.open = function () {
-        var modalInstance = $uibModal.open({ templateUrl: "Modal.html", controller: "HomeController", controllerAs: "$modal" });
+        $uibModal.open({
+            templateUrl: 'Modal.html',
+            controller: function ($scope) {
+                $scope.retorno = $modal.retorno.data.Mensagem;
+            }
+        });
     };
 
     $scope.enviar = function () {
@@ -27,12 +32,12 @@
             }
         })
             .then(function (data) {
-                $scope.retorno = data;
+                $modal.retorno = data;
                 $scope.processando = false;
                 $scope.clean();
                 $modal.open();
             }, function (data) {
-                $scope.retorno = data;
+                $modal.retorno = data;
                 $scope.processando = false;
                 $modal.open();
             });

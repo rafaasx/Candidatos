@@ -18,18 +18,16 @@ namespace Util
         public string Body { get; set; }
 
         public string Subject { get; set; }
-
+        /// <summary>
+        /// Configuração armazenada no Web.config
+        /// <add key="MailConfiguration" value="Email=nome@email.com;Password=;Smtp=smtp.email.com;Port=587;Ssl=true" />
+        /// </summary>
         public Mail()
         {
             _mailConfiguration = new MailConfiguration();
             string mailConfiguration = ConfigurationSettings.AppSettings["MailConfiguration"];
             if (!string.IsNullOrEmpty(mailConfiguration))
             {
-                //_mailConfiguration.Email = "rafaeltwisted@gmail.com";
-                //_mailConfiguration.Password = "mbn2807.";
-                //_mailConfiguration.Port = 587;
-                //_mailConfiguration.Smtp = "smtp.gmail.com";
-                //_mailConfiguration.Ssl = true;
                 _mailConfiguration.Email =
                     mailConfiguration.Split(';')
                         .Where(x => x.Split('=')[0] == "Email")
