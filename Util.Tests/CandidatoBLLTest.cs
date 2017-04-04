@@ -32,7 +32,7 @@ namespace Util.Tests
             CandidatoInfo candidatoInfo = new CandidatoInfo { Email = "rafaeltwisted@gmail.com", Nome = "Rafael Xavier", Android = 10, Css = 0, Django = 0, Html = 0, Ios = 10, Javascript = 0, Python = 0 };
             CandidatoBLL candidatoBLL = new CandidatoBLL();
             Retorno retorno = candidatoBLL.Enviar(candidatoInfo);
-            Assert.IsNotNull(retorno.Status);
+            Assert.IsTrue(retorno.Status);
         }
 
         [TestMethod]
@@ -41,7 +41,7 @@ namespace Util.Tests
             CandidatoInfo candidatoInfo = new CandidatoInfo { Email = "rafaeltwisted@gmail.com", Nome = "Rafael Xavier", Android = 0, Css = 0, Django = 0, Html = 0, Ios = 0, Javascript = 0, Python = 0 };
             CandidatoBLL candidatoBLL = new CandidatoBLL();
             Retorno retorno = candidatoBLL.Enviar(candidatoInfo);
-            Assert.IsNotNull(retorno.Status);
+            Assert.IsTrue(retorno.Status);
         }
 
         [TestMethod]
